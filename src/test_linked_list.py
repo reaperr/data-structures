@@ -35,3 +35,13 @@ def test_search_LinkedList():
     assert test_list2.search(3).val == test_node.val
     assert test_list.search(50) is None
     assert test_list2.search(50) is None
+
+def test_remove_LinkedList():
+    from linked_list import Node
+    test_node = Node(3)
+    test_list2 = LinkedList([1, 2, 3, 4, 3])
+    test_list = LinkedList()
+    test_list2.remove(test_node)
+    assert test_list2.size() == 3
+    with pytest.raises(ValueError):
+        test_list.remove(test_node)
