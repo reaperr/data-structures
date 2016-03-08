@@ -15,7 +15,6 @@ class LinkedList(object):
             rtn_value = self.head.val
             new_head = self.head.point_to
             self.head = new_head
-            self.head.point_to = None
             return rtn_value
         except AttributeError:
             return None
@@ -43,11 +42,9 @@ class LinkedList(object):
             if step_head.val == node.val:
                 if prev_node is None:
                     self.head = step_head.point_to
-                    step_head.point_to = None
                     step_head = self.head
                 else:
                     prev_node.point_to = step_head.point_to
-                    step_head.point_to = None
                     step_head = prev_node
             prev_node = step_head
             step_head = step_head.point_to
