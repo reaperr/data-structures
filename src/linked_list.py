@@ -1,4 +1,6 @@
 # -*-utf-8-*-
+import string
+
 class LinkedList(object):
     def __init__(self, iter=None):
         self.head = None
@@ -36,7 +38,7 @@ class LinkedList(object):
         step_head = self.head
         prev_node = None
         if self.search(node.val) is None:
-            raise ValueError
+            raise ValueError('Node is not in list.')
         while step_head:
             if step_head.val == node.val:
                 if prev_node is None:
@@ -50,8 +52,21 @@ class LinkedList(object):
             prev_node = step_head
             step_head = step_head.point_to
 
+    def to_string(self):
+        rtn_string = u"("
+        step_head = self.head
+        while step_head:
+            if step_head.point_to is None:
+                rtn_string = rtn_string + str(step_head.val)
+                break
+            rtn_string = rtn_string + str(step_head.val) + u", "
+            step_head = step_head.point_to
+        rtn_string = rtn_string + u")"
+        return rtn_string
+
     def display(self):
-        pass
+        print(self.to_string())
+
 
 class Node(object):
     def __init__(self, val, point_to=None):
