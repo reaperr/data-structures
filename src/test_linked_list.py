@@ -45,3 +45,9 @@ def test_remove_LinkedList():
     assert test_list2.size() == 3
     with pytest.raises(ValueError):
         test_list.remove(test_node)
+
+
+def test_display_LinkedList():
+    test_list = LinkedList()
+    test_list2 = LinkedList([1, 2, 3])
+    assert test_list2.to_string() == '(3, 2, 1)'
