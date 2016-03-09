@@ -43,3 +43,14 @@ class DLL(LinkedList):
             return rtn_value
         except AttributeError:
             return None
+
+    def shift(self):
+        """Remove the value at the tail of the list."""
+        try:
+            rtn_value = self.tail.val
+            new_tail = self.tail.prev_node
+            self.tail = new_tail
+            self.tail.next_node = None
+            return rtn_value
+        except AttributeError:
+            return None

@@ -43,3 +43,8 @@ def test_pop(test_empty_DLL, test_DLL):
     assert test_empty_DLL.pop() is None
     assert test_DLL.pop() == 3
     assert test_DLL.head.val == 2
+
+def test_shift(test_empty_DLL, test_DLL):
+    assert test_empty_DLL.shift() is None
+    assert test_DLL.shift() == 1
+    assert test_DLL.tail.val == 2
