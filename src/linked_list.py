@@ -1,4 +1,4 @@
-# -*-utf-8-*-
+# -*- coding: utf-8-*-
 import string
 
 class LinkedList(object):
@@ -7,32 +7,37 @@ class LinkedList(object):
         if iter:
             for val in iter:
                 self.insert(val)
+
     def insert(self, val):
         new_node = Node(val, self.head)
         self.head = new_node
+
     def pop(self):
         try:
             rtn_value = self.head.val
-            new_head = self.head.point_to
+            new_head = self.head.next_node
             self.head = new_head
             return rtn_value
         except AttributeError:
             return None
+
     def size(self):
         count = 0
         step_head = self.head
         while step_head:
             count += 1
-            step_head = step_head.point_to
+            step_head = step_head.next_node
         return count
     def search(self, val):
+
         step_head = self.head
         while step_head:
             if step_head.val == val:
                 return step_head
-            step_head = step_head.point_to
+            step_head = step_head.next_node
         else:
             return None
+            
     def remove(self, node):
         step_head = self.head
         prev_node = None
@@ -41,23 +46,23 @@ class LinkedList(object):
         while step_head:
             if step_head.val == node.val:
                 if prev_node is None:
-                    self.head = step_head.point_to
+                    self.head = step_head.next_node
                     step_head = self.head
                 else:
-                    prev_node.point_to = step_head.point_to
+                    prev_node.next_node = step_head.next_node
                     step_head = prev_node
             prev_node = step_head
-            step_head = step_head.point_to
+            step_head = step_head.next_node
 
     def to_string(self):
         rtn_string = u"("
         step_head = self.head
         while step_head:
-            if step_head.point_to is None:
+            if step_head.next_node is None:
                 rtn_string = rtn_string + str(step_head.val)
                 break
             rtn_string = rtn_string + str(step_head.val) + u", "
-            step_head = step_head.point_to
+            step_head = step_head.next_node
         rtn_string = rtn_string + u")"
         return rtn_string
 
@@ -66,6 +71,7 @@ class LinkedList(object):
 
 
 class Node(object):
-    def __init__(self, val, point_to=None):
+    def __init__(self, val, next_node=None, prev_node=None):
         self.val = val
-        self.point_to = point_to
+        self.next_node = next_node
+        self.prev_node = prev_node
