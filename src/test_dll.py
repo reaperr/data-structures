@@ -38,3 +38,8 @@ def test_append(test_empty_DLL, test_DLL):
     test_DLL.append(7)
     assert test_DLL.tail.val == 7
     assert test_DLL.tail.prev_node.val == 1
+
+def test_pop(test_empty_DLL, test_DLL):
+    assert test_empty_DLL.pop() is None
+    assert test_DLL.pop() == 3
+    assert test_DLL.head.val == 2

@@ -16,7 +16,7 @@ class DLL(LinkedList):
                 self.insert(val)
 
     def insert(self, val):
-        """Inserts value at the head of the list."""
+        """Insert a value at the head of the list."""
         new_node = Node(val=val, next_node=self.head)
         if self.head:
             self.head.prev_node = new_node
@@ -25,7 +25,7 @@ class DLL(LinkedList):
         self.head = new_node
 
     def append(self, val):
-        """Inserts value at the tail of the list."""
+        """Append a value at the tail of the list."""
         new_node = Node(val=val, prev_node=self.tail)
         if self.tail:
             self.tail.next_node = new_node
@@ -34,4 +34,12 @@ class DLL(LinkedList):
         self.tail = new_node
 
     def pop(self):
-        pass
+        """Pop the value at the head of the list."""
+        try:
+            rtn_value = self.head.val
+            new_head = self.head.next_node
+            self.head = new_head
+            self.head.prev_node = None
+            return rtn_value
+        except AttributeError:
+            return None
