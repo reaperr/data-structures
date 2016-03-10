@@ -54,3 +54,25 @@ class DLL(LinkedList):
             return rtn_value
         except AttributeError:
             return None
+
+    def remove(self, val):
+        """Remove first instance of val from the list starting from head."""
+        val_search = LinkedList.search(self, val)
+        if val_search is None:
+            raise ValueError
+        try:  # Runs if removing node from middle.
+            val_search.prev_node.next_node = val_search.next_node
+            val_search.next_node.prev_node = val_search.prev_node
+        except AttributeError:
+            try:  # Runs if removing head or tail.
+                if self.head == val_search:
+                    self.head = val_search.next_node
+                    self.head.prev_node = None
+                if self.tail == val_search:
+                    self.tail = val_search.prev_node
+                    self.tail.next_node = None
+            except AttributeError:
+                # Runs if removing last node.
+                self.head = None
+                self.tail = None
+        return val_search.val
