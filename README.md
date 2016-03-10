@@ -11,3 +11,6 @@ The Stack data structure. We realized that a stack is essentially just a linked_
 
 ## dll.py
 The doubly linked list data structure. To implement the DLL we modified our Node objects to contain two pointers, one to to the next_node and one to the prev_node. The prev_node has a None value if it's the head and the next_node has a None value if it's the tail. In all cases we had to overwrite functions since we needed to handle both links, which was not provided in our linked list.
+
+## queue.py
+The queue data structure. We decided to use a composition of a Doubly linked list as a container for the queue. Since a queue primarily cares about adding stuff at the end and grabbing stuff from the front all of which our DLL already supports. So each method in queue is just calling an already existing method or property the container has. Makes life a lot easier.
