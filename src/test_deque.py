@@ -50,3 +50,27 @@ def test_popleft_empty(empty_deque):
 
 def test_popleft(deque):
     assert deque.popleft() == 1
+
+
+def test_peek_empty(empty_deque):
+    assert empty_deque.peek() is None
+
+
+def test_peek(deque):
+    assert deque.peek() == 3
+
+
+def test_peekleft_empty(empty_deque):
+    assert empty_deque.peekleft() is None
+
+
+def test_peekleft(deque):
+    assert deque.peekleft() == 1
+
+
+def test_empty_size(empty_deque):
+    assert empty_deque.size() == 0
+
+
+def test_size(deque):
+    assert deque.size() == 3
