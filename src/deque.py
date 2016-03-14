@@ -28,17 +28,26 @@ class Deque(object):
         raise AttributeError
 
     def popleft(self):
-        """Remove and the return the value at the front of the Deque"""
+        """Remove and the return the value at the front of the Deque."""
         rtn_val = self.container.pop()
         if rtn_val:
             return rtn_val
         raise AttributeError
 
     def peek(self):
-        pass
+        """Return the next value that would be popped."""
+        try:
+            return self.container.tail.val
+        except AttributeError:
+            return None
 
     def peekleft(self):
-        pass
+        """Return the next value that would popleft."""
+        try:
+            return self.container.head.val
+        except AttributeError:
+            return None
 
     def size(self):
-        pass
+        """Return the size of the Deque."""
+        return self.container.size()
