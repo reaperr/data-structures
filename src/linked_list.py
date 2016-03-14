@@ -1,5 +1,4 @@
 # -*- coding: utf-8-*-
-import string
 
 class LinkedList(object):
     """A Linked List Data Structure."""
@@ -66,11 +65,11 @@ class LinkedList(object):
         step_head = self.head
         while step_head:
             if step_head.next_node is None:
-                rtn_string = rtn_string + str(step_head.val)
+                rtn_string += str(step_head.val)
                 break
-            rtn_string = rtn_string + str(step_head.val) + u", "
+            rtn_string += str(step_head.val) + u", "
             step_head = step_head.next_node
-        rtn_string = rtn_string + u")"
+        rtn_string += u")"
         return rtn_string
 
     def display(self):
@@ -79,8 +78,7 @@ class LinkedList(object):
 
 class Node(object):
     """A Node containing a value and avalible pointers to other nodes."""
-    def __init__(self, val, next_node=None, prev_node=None):
+    def __init__(self, val, next_node=None):
         """Node initation method."""
         self.val = val
         self.next_node = next_node
-        self.prev_node = prev_node

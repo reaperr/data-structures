@@ -1,10 +1,16 @@
 # -*- coding: utf-8-*-
 
-from linked_list import LinkedList
-from linked_list import Node
+
+class Node(object):
+    """A Node containing a value and avalible pointers to other nodes."""
+    def __init__(self, val, next_node=None, prev_node=None):
+        """Node initation method."""
+        self.val = val
+        self.next_node = next_node
+        self.prev_node = prev_node
 
 
-class DLL(LinkedList):
+class DLL(object):
     """Double Linked List class that inherits LinkedList."""
 
     def __init__(self, iter=None):
@@ -57,7 +63,7 @@ class DLL(LinkedList):
 
     def remove(self, val):
         """Remove first instance of val from the list starting from head."""
-        val_search = LinkedList.search(self, val)
+        val_search = self.search(val)
         if val_search is None:
             raise ValueError
         try:  # Runs if removing node from middle.
@@ -76,3 +82,35 @@ class DLL(LinkedList):
                 self.head = None
                 self.tail = None
         return val_search.val
+
+    def search(self, val):
+        """Search and return the Node with value val if in the list."""
+        step_head = self.head
+        while step_head:
+            if step_head.val == val:
+                return step_head
+            step_head = step_head.next_node
+        else:
+            return None
+
+    def to_string(self):
+        """Return a string representation of the list."""
+        rtn_string = u"("
+        step_head = self.head
+        while step_head:
+            if step_head.next_node is None:
+                rtn_string += str(step_head.val)
+                break
+            rtn_string += str(step_head.val) + u", "
+            step_head = step_head.next_node
+        rtn_string += u")"
+        return rtn_string
+
+    def size(self):
+        """Return the length of the list."""
+        count = 0
+        step_head = self.head
+        while step_head:
+            count += 1
+            step_head = step_head.next_node
+        return count

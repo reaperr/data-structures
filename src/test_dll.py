@@ -19,7 +19,6 @@ def test_init_DLL():
     """Testing the __init__ method of DLL object."""
     assert isinstance(DLL(), DLL)
     assert isinstance(DLL([1, 2, 3]), DLL)
-    assert issubclass(DLL, LinkedList)
     test_DLL = DLL()
     assert test_DLL.tail is None
 
