@@ -1,7 +1,7 @@
 # -*- coding: utf-8-*-
 
 import pytest
-
+from binheap import BinaryHeap
 
 @pytest.fixture(scope="function")
 def binheap():
@@ -17,8 +17,16 @@ def test_BinHeap_init():
 
 def test_push(binheap):
     binheap.push(13)
-    assert binheap.heap_list[2] == 13
+    assert binheap._heap_list[2] == 13
 
 
 def test_heap_check(binheap):
     binheap._heap_check(1, 3)
+
+
+def test_child_index(binheap):
+    assert binheap._child_index(1) == (3, 4)
+
+
+def test_parent_index(binheap):
+    assert binheap._parent_index(4) == 1
