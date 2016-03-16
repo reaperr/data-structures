@@ -19,7 +19,6 @@ class BinaryHeap(object):
     def push(self, val):
         """Put new value into the heap, maintaining the heap property."""
         self._heap_list.append(val)
-        #import pdb; pdb.set_trace()
         self._heap_check_up(self._parent_index(len(self._heap_list) - 1),
                             len(self._heap_list) - 1)
 
