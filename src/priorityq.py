@@ -4,8 +4,12 @@ from binheap import BinaryHeap
 
 
 class PriorityQItem(object):
+    """Represents an item in a priority queue.
 
-    """Represents an item in a priority queue."""
+    Contains some value and a priority integer.
+    A higher interger is a higher priority.
+
+    """
     def __init__(self, val, priority=1):
         """Constructor function of a Priority Queue Item."""
         self._val = val
