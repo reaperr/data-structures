@@ -17,3 +17,6 @@ The queue data structure. We decided to use a composition of a Doubly Linked Lis
 
 ## deque.py
 The deque data structure. We use a composotion of a Doubly Linked List as a container for the deque because we add and remove values from both the front and back of our deque. It was not ideal to inherit from queue because we would have to overwrite most of queue's functions.
+
+# binheap.py
+The binary heap data structure. We created a max heap data structure wherein the parent value must be greater than that of its children. We created a push() method that adds a new value to our heap, maintaining the heap property. Our push method then checks if value of child is greater or less than parent. If true, we switch the values then run the same check on the new parent and its parent. We also created a .pop() method, which removes the "top" value in the heap, maintaining the heap property. Our pop method then checks if the value of a child is greater or less than parent. Does a switch if this is true then runs the check on the new parent and its parent.
