@@ -19,5 +19,15 @@ def test_pq():
 
 
 def test_PriorityQ_init(test_pq):
-    assert test_pq._priority_heap[0].priority == 1
-    assert test_pq._priority_heap[4].priority == 2
+    assert test_pq._priority_heap._heap_list[0]._priority == 2
+    assert test_pq._priority_heap._heap_list[4]._priority == 1
+
+
+def test_PriorityQ_default():
+    test_pq = PriorityQ([1, 2, 3])
+    assert test_pq._priority_heap._heap_list[0]._priority == 1
+
+
+def test_insert(test_pq):
+    test_pq.insert(PriorityQItem(12, 5))
+    assert test_pq._priority_heap._heap_list[0]._priority == 5
