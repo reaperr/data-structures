@@ -45,6 +45,9 @@ class DLL(object):
             rtn_value = self.head.val
             new_head = self.head.next_node
             self.head = new_head
+            if self.head is None:
+                self.tail = None
+                return rtn_value
             self.head.prev_node = None
             return rtn_value
         except AttributeError:
@@ -56,6 +59,9 @@ class DLL(object):
             rtn_value = self.tail.val
             new_tail = self.tail.prev_node
             self.tail = new_tail
+            if self.tail is None:
+                self.head = None
+                return rtn_value
             self.tail.next_node = None
             return rtn_value
         except AttributeError:

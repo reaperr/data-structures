@@ -48,6 +48,16 @@ def test_shift(test_empty_DLL, test_DLL):
     assert test_DLL.shift() == 1
     assert test_DLL.tail.val == 2
 
+def test_pop_single():
+    test_DLL = DLL([1])
+    assert test_DLL.pop() == 1
+    assert test_DLL.pop() is None
+
+def test_shift_single():
+    test_DLL = DLL([1])
+    assert test_DLL.shift() == 1
+    assert test_DLL.shift() is None
+
 def test_remove(test_empty_DLL, test_DLL):
     with pytest.raises(ValueError):
         test_empty_DLL.remove(3)
