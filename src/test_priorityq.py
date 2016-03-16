@@ -31,3 +31,11 @@ def test_PriorityQ_default():
 def test_insert(test_pq):
     test_pq.insert(PriorityQItem(12, 5))
     assert test_pq._priority_heap._heap_list[0]._priority == 5
+
+def test_pop(test_pq):
+    assert test_pq.pop()._val == 32
+    assert test_pq._priority_heap._heap_list[0]._priority == 2
+
+def test_peek(test_pq):
+    assert test_pq.peek()._val == 32
+    assert test_pq._priority_heap._heap_list[0]._val == 32

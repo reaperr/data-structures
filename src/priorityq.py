@@ -37,3 +37,13 @@ class PriorityQ(object):
     def insert(self, item):
         """Insert a new item into our queue."""
         self._priority_heap.push(item)
+
+    def pop(self):
+        """Remove the most important item from the queue."""
+        popped_val = self._priority_heap._heap_list[0]
+        self._priority_heap.pop()
+        return popped_val
+
+    def peek(self):
+        """Return the most important item without removing it from the heap."""
+        return self._priority_heap._heap_list[0]

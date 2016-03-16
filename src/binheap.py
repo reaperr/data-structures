@@ -25,7 +25,7 @@ class BinaryHeap(object):
     def pop(self):
         """Remove the top value in the heap, maintaining the heap property."""
         self._heap_list.pop(0)
-        self._heap_check_down(self._heap_list[0])
+        self._heap_check_down(0)
 
     def _heap_check_up(self, parent_index, child_index):
         """Check if value of child is greater or less than parent.
