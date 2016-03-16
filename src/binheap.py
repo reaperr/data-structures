@@ -50,11 +50,13 @@ class BinaryHeap(object):
         """
         left, right = self._child_index(parent_index)
         try:
-            if self._heap_list[left] > self._heap_list[parent_index]:
+            if (self._heap_list[left] > self._heap_list[parent_index] and
+               self._heap_list[left] > self._heap_list[right]):
                 self._heap_list[parent_index], self._heap_list[left] = \
                     self._heap_list[left], self._heap_list[parent_index]
                 self._heap_check_down(left)
-            elif self._heap_list[right] > self._heap_list[parent_index]:
+            elif (self._heap_list[right] > self._heap_list[parent_index] and
+                  self._heap_list[right] > self._heap_list[left]):
                 self._heap_list[parent_index], self._heap_list[right] = \
                     self._heap_list[right], self._heap_list[parent_index]
                 self._heap_check_down(right)
