@@ -38,3 +38,18 @@ class SimpleGraph(object):
         except ValueError:
             pass
         self._graph_content[node1].append(node2)
+
+    def del_node(self, node):
+        """Remove the node from the graph if it exists. Error on Fail"""
+        pass
+
+    def del_edge(self, node1, node2):
+        """Removes the edge connected node1 to node2. Error on Fail"""
+        self._graph_content[node1].remove(node2)
+
+    def neighbors(self, node):
+        """Returns a list of all nodes with edges connected to node(param)"""
+        if node in self._graph_content:
+            return [key for key in list(self._graph_content.keys())
+                    if node in self._graph_content[key]]
+        raise ValueError
