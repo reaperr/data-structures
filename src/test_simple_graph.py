@@ -23,3 +23,18 @@ def test_nodes(test_graph):
 
 def test_edges(test_graph):
     assert test_graph.edges() == [(1, [2, 3]), (2, [1]), (3, [2])]
+
+
+def test_add_node(test_graph):
+    test_graph.add_node(4)
+    assert test_graph._graph_content[4] == []
+
+
+def test_add_repeat_node(test_graph):
+    with pytest.raises(ValueError):
+        test_graph.add_node(3)
+
+
+def test_add_edge(test_graph):
+    test_graph.add_edge(4, 2)
+    assert test_graph._graph_content[4] == [2]
