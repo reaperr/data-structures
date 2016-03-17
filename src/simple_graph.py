@@ -41,7 +41,13 @@ class SimpleGraph(object):
 
     def del_node(self, node):
         """Remove the node from the graph if it exists. Error on Fail"""
-        pass
+        try:
+            node_neighbors = self.neighbors(node)
+            for neighbor in node_neighbors:
+                self.del_edge(neighbor, node)
+            del self._graph_content[node]
+        except (KeyError, ValueError):
+            raise ValueError
 
     def del_edge(self, node1, node2):
         """Removes the edge connected node1 to node2. Error on Fail"""
