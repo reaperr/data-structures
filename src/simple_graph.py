@@ -52,7 +52,13 @@ class SimpleGraph(object):
 
     def neighbors(self, node):
         """Returns a list of all nodes with edges connected to node(param)"""
-        if node in self._graph_content:
+        if self.has_node(node):
             return [key for key in list(self._graph_content.keys())
                     if node in self._graph_content[key]]
+        raise ValueError
+
+    def adjacent(self, node1, node2):
+        if self.has_node(node1) and self.has_node(node2):
+            return (node2 in self._graph_content[node1] or
+                    node1 in self._graph_content[node2])
         raise ValueError
