@@ -18,25 +18,19 @@ class SimpleGraph(object):
 
     def add_node(self, val):
         """Add a new node to the graph."""
-        try:
-            checker = self._graph_content[val]
+        if self.has_node(val):
             raise ValueError
-        except KeyError:
-            self._graph_content[val] = []
+        self._graph_content[val] = []
 
     def add_edge(self, node1, node2):
         """Add a new edge to the graph connecting node1 to node2.
 
         Checks if they exist and adds them if they do not.
         """
-        try:
+        if not self.has_node(node1):
             self.add_node(node1)
-        except ValueError:
-            pass
-        try:
+        if not self.has_node(node2):
             self.add_node(node2)
-        except ValueError:
-            pass
         self._graph_content[node1].append(node2)
 
     def del_node(self, node):
@@ -48,6 +42,9 @@ class SimpleGraph(object):
             del self._graph_content[node]
         except (KeyError, ValueError):
             raise ValueError
+
+    def has_node(self, node):
+        return node in self._graph_content
 
     def del_edge(self, node1, node2):
         """Removes the edge connected node1 to node2. Error on Fail"""

@@ -50,6 +50,11 @@ def test_del_edge(test_graph):
     assert test_graph._graph_content[3] == []
 
 
+def test_has_node(test_graph):
+    assert test_graph.has_node(1) is True
+    assert test_graph.has_node(5) is False
+
+
 def test_neighbors(test_graph):
     assert test_graph.neighbors(2) == [1, 3]
 
