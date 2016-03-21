@@ -1,5 +1,7 @@
 # -*- coding: utf-8 *-*
 from stack import Stack
+from queue import Queue
+import time
 
 
 class SimpleGraph(object):
@@ -76,3 +78,41 @@ class SimpleGraph(object):
                 for item in self._graph_content[checker]:
                     depth_stack.push(item)
         return visited
+
+    def breadth_first_traversal(self, start):
+        """Return the full visited path of a breadth first traversal."""
+        breadth_queue = Queue()
+        visited = []
+        breadth_queue.enqueue(start)
+        while breadth_queue.size() > 0:
+            checker = breadth_queue.dequeue()
+            if checker not in set(visited):
+                visited.append(checker)
+                for item in self._graph_content[checker]:
+                    breadth_queue.enqueue(item)
+        return visited
+
+
+if __name__ == '__main__':
+    example_graph = SimpleGraph()
+    example_graph._graph_content = {
+        3: ['7', 5],
+        '7': ['11', 5],
+        '11': [],
+        5: [10],
+        10: ['7'],
+    }
+    print(u"Made Graph:{}").format(example_graph.edges())
+    start = time.time()
+    example_graph.depth_first_traversal(3)
+    end = time.time()
+    print(u"Depth First Travel (from 3):")
+    print(example_graph.depth_first_traversal(3))
+    print(u"Took {} seconds").format(end-start)
+    start = time.time()
+    example_graph.breadth_first_traversal(3)
+    end = time.time()
+    print(u"Breadth First Travel (from 3):")
+    print(example_graph.breadth_first_traversal(3))
+    print(u"Took {} seconds").format(end-start)
+
