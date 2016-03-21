@@ -68,6 +68,8 @@ class SimpleGraph(object):
 
     def depth_first_traversal(self, start):
         """Return the full visited path of a depth first traversal."""
+        if not self.has_node(start):
+            raise ValueError
         depth_stack = Stack()
         visited = []
         depth_stack.push(start)
@@ -81,6 +83,8 @@ class SimpleGraph(object):
 
     def breadth_first_traversal(self, start):
         """Return the full visited path of a breadth first traversal."""
+        if not self.has_node(start):
+            raise ValueError
         breadth_queue = Queue()
         visited = []
         breadth_queue.enqueue(start)
@@ -94,25 +98,48 @@ class SimpleGraph(object):
 
 
 if __name__ == '__main__':
-    example_graph = SimpleGraph()
-    example_graph._graph_content = {
+    basic_graph = SimpleGraph()
+    basic_graph._graph_content = {
         3: ['7', 5],
         '7': ['11', 5],
         '11': [],
         5: [10],
         10: ['7'],
     }
-    print(u"Made Graph:{}").format(example_graph.edges())
-    start = time.time()
-    example_graph.depth_first_traversal(3)
-    end = time.time()
-    print(u"Depth First Travel (from 3):")
-    print(example_graph.depth_first_traversal(3))
-    print(u"Took {} seconds").format(end-start)
-    start = time.time()
-    example_graph.breadth_first_traversal(3)
-    end = time.time()
-    print(u"Breadth First Travel (from 3):")
-    print(example_graph.breadth_first_traversal(3))
-    print(u"Took {} seconds").format(end-start)
 
+    print(u"Made Graph:{}").format(basic_graph.edges())
+    start1 = time.time()
+    basic_graph.depth_first_traversal(3)
+    end1 = time.time()
+    print(u"Depth First Travel (from 3):")
+    print(basic_graph.depth_first_traversal(3))
+    print(u"Took {} seconds").format(end1-start1)
+
+    start2 = time.time()
+    basic_graph.breadth_first_traversal(3)
+    end2 = time.time()
+    print(u"Breadth First Travel (from 3):")
+    print(basic_graph.breadth_first_traversal(3))
+    print(u"Took {} seconds").format(end2-start2)
+
+    crazy_graph = SimpleGraph()
+    crazy_dict = {'head': range(100)}
+    for num in range(100):
+        crazy_dict[num] = ['many']
+    crazy_dict[1] = ['single']
+    crazy_dict['many'] = []
+    crazy_dict['single'] = []
+    crazy_graph._graph_content = crazy_dict
+
+    print(u"Made really big graph (100 nodes from head)")
+    start3 = time.time()
+    crazy_graph.depth_first_traversal('head')
+    end3 = time.time()
+    print(u"Depth First Travel (from head):")
+    print(u"Took {} seconds").format(end3-start3)
+
+    start4 = time.time()
+    crazy_graph.breadth_first_traversal('head')
+    end4 = time.time()
+    print(u"Breadth First Travel (from head):")
+    print(u"Took {} seconds").format(end4-start4)

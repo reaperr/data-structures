@@ -18,7 +18,7 @@ class Queue(object):
     def dequeue(self):
         """Removes and returns value from front of queue."""
         temp_value = self._container.pop()
-        if temp_value:
+        if temp_value is not None:
             return temp_value
         raise ValueError
 
