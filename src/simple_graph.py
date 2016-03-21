@@ -37,7 +37,7 @@ class SimpleGraph(object):
         self._graph_content[node1].append(node2)
 
     def del_node(self, node):
-        """Remove the node from the graph if it exists. Error on Fail"""
+        """Remove the node from the graph if it exists. Error on Fail."""
         try:
             node_neighbors = self.neighbors(node)
             for neighbor in node_neighbors:
@@ -47,20 +47,22 @@ class SimpleGraph(object):
             raise ValueError
 
     def has_node(self, node):
+        """True/False if the graph has node."""
         return node in self._graph_content
 
     def del_edge(self, node1, node2):
-        """Removes the edge connected node1 to node2. Error on Fail"""
+        """Remove the edge connected node1 to node2. Error on Fail."""
         self._graph_content[node1].remove(node2)
 
     def neighbors(self, node):
-        """Returns a list of all nodes with edges connected to node(param)"""
+        """Return a list of all nodes with edges connected to node(param)."""
         if self.has_node(node):
             return [key for key in list(self._graph_content.keys())
                     if node in self._graph_content[key]]
         raise ValueError
 
     def adjacent(self, node1, node2):
+        """Return True or False if two nodes have a connection."""
         if self.has_node(node1) and self.has_node(node2):
             return (node2 in self._graph_content[node1] or
                     node1 in self._graph_content[node2])
