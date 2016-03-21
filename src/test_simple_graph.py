@@ -71,3 +71,7 @@ def test_adjacent(test_graph):
 def test_bad_adjacent(test_graph):
     with pytest.raises(ValueError):
         test_graph.adjacent(34, 56)
+
+
+def test_dfs(test_graph):
+    assert test_graph.depth_first_traversal(1) == [1, 3, 10, 2]

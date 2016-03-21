@@ -1,4 +1,5 @@
 # -*- coding: utf-8 *-*
+from stack import Stack
 
 
 class SimpleGraph(object):
@@ -62,3 +63,16 @@ class SimpleGraph(object):
             return (node2 in self._graph_content[node1] or
                     node1 in self._graph_content[node2])
         raise ValueError
+
+    def depth_first_traversal(self, start):
+        """Return the full visited path of a depth first traversal."""
+        depth_stack = Stack()
+        visited = []
+        depth_stack.push(start)
+        while depth_stack.size() > 0:
+            checker = depth_stack.pop()
+            if checker not in set(visited):
+                visited.append(checker)
+                for item in self._graph_content[checker]:
+                    depth_stack.push(item)
+        return visited
