@@ -23,14 +23,14 @@ class Deque(object):
     def pop(self):
         """Remove and return the value at the end of the Deque."""
         rtn_val = self.container.shift()
-        if rtn_val:
+        if rtn_val is not None:
             return rtn_val
         raise AttributeError
 
     def popleft(self):
         """Remove and the return the value at the front of the Deque."""
         rtn_val = self.container.pop()
-        if rtn_val:
+        if rtn_val is not None:
             return rtn_val
         raise AttributeError
 

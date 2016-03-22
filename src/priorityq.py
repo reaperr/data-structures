@@ -25,7 +25,16 @@ class PriorityQItem(object):
 
 
 class PriorityQ(object):
-    """Python implementation of the Priority Queue data structure."""
+    """Python implementation of the Priority Queue data structure.
+
+    A list of Objects passed into the PriorityQ constuctror are automatically
+    converted to a PriorityQueueItem with default priority of one.
+
+    A length 2 tuple will be coverted to a PriorityQueueItem.
+    Index 0 will be the value
+    Index 1 will be the priority
+    If you need a 2 length tuple as your value in a Item use ((v, v), p)
+    """
 
     def __init__(self, iter=None):
         """Constructor function of a Priority Queue."""
@@ -35,19 +44,22 @@ class PriorityQ(object):
             for val in iter:
                 if isinstance(val, PriorityQItem):
                     self.insert(val)
+                elif isinstance(val, tuple) and len(val) == 2:
+                    self.insert(PriorityQItem(val[0], val[1]))
                 else:
                     self.insert(PriorityQItem(val))
 
     def insert(self, item):
         """Insert a new item into our queue."""
-        self._priority_heap.push(item)
+        if isinstance(item, PriorityQItem):
+            self._priority_heap.push(item)
+        else:
+            self._priority_heap.push(PriorityQItem(item))
 
     def pop(self):
         """Remove the most important item from the queue."""
-        popped_val = self._priority_heap._heap_list[0]
-        self._priority_heap.pop()
-        return popped_val
+        return self._priority_heap.pop()._val
 
     def peek(self):
         """Return the most important item without removing it from the heap."""
-        return self._priority_heap._heap_list[0]
+        return self._priority_heap._heap_list[0]._val

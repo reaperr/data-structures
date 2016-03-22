@@ -71,3 +71,17 @@ def test_adjacent(test_graph):
 def test_bad_adjacent(test_graph):
     with pytest.raises(ValueError):
         test_graph.adjacent(34, 56)
+
+
+def test_dfs(test_graph):
+    # cyclic
+    assert test_graph.depth_first_traversal(1) == [1, 3, 10, 2]
+    # non-cyclic
+    assert test_graph.depth_first_traversal(2) == [2, 1, 3, 10]
+
+
+def test_bfs(test_graph):
+    # cyclic
+    assert test_graph.breadth_first_traversal(1) == [1, 2, 3, 10]
+    # non-cyclic
+    assert test_graph.breadth_first_traversal(2) == [2, 1, 3, 10]
