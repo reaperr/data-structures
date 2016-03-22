@@ -26,3 +26,6 @@ The Priority Queue data structure. This contains a Binary Heap object as that al
 
 ## simple_graph.py
 The Simple Graph data structure. In this case we started from sratch and contained everything inside a dictonary. Each key refers to a node and the nodes value is a list of nodes it has edges going to. Since we used a dictonary many of the methods created utilize built-in features of the dictonary and list to accomplish our tasks.
+
+## traversal
+The Graph Traveral data structure. We added Breadth-first Search and Depth-first Search methods to our our SimpleGraph class. Breadth-first search starts at a given node and explores the neighbor nodes first, before moving to the next level neighbors. Depth-first search starts at a given node and explores as far as possible along each branch before backtracking. Both return the full visited path when their traversal is complete.
