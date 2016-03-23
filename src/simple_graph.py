@@ -61,7 +61,9 @@ class SimpleGraph(object):
 
     def del_edge(self, node1, node2):
         """Remove the edge connected node1 to node2. Error on Fail."""
-        self._graph_content[node1].remove(node2)
+        for node in self._graph_content[node1]:
+            if node2 in node.keys():
+                self._graph_content[node1].remove(node)
 
     def neighbors(self, node):
         """Return a list of all nodes with edges connected to node(param)."""

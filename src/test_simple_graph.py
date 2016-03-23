@@ -52,7 +52,7 @@ def test_del_node(test_graph):
 
 def test_del_edge(test_graph):
     test_graph.del_edge(3, 2)
-    assert test_graph._graph_content[3] == [10]
+    assert test_graph._graph_content[3] == [{10: 8}]
 
 
 def test_has_node(test_graph):
