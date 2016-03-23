@@ -17,7 +17,16 @@ class SimpleGraph(object):
 
     def edges(self):
         """Return a list of nodes and their edges."""
-        return list(self._graph_content.items())
+        rtn_list = []
+        # go through each node and its lists of paths.
+        for key, dicts in self._graph_content.items():
+            path_keys = []
+            # for each path append the key to path_keys
+            for dict in dicts:
+                path_keys.append(*dict.keys())
+            rtn_list.append((key, path_keys))
+        return rtn_list
+
 
     def add_node(self, val):
         """Add a new node to the graph."""
@@ -57,8 +66,14 @@ class SimpleGraph(object):
     def neighbors(self, node):
         """Return a list of all nodes with edges connected to node(param)."""
         if self.has_node(node):
-            return [key for key in list(self._graph_content.keys())
-                    if node in self._graph_content[key]]
+            rtn_list = []
+            # go through each node and its lists of paths.
+            for key, dicts in self._graph_content.items():
+                # for each path that is node append the key to rtn_list
+                for dict in dicts:
+                    if node in dict.keys():
+                        rtn_list.append(key)
+            return rtn_list
         raise ValueError
 
     def adjacent(self, node1, node2):
