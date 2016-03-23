@@ -6,7 +6,12 @@ from simple_graph import SimpleGraph
 
 @pytest.fixture()
 def test_graph():
-    test_dict = {1: [2, 3], 2: [1], 3: [2, 10], 10: []}
+    test_dict = {
+        {1: 0}: [{2: 3}, {3: 5}],
+        {2: 0}: [{1: 3}],
+        {3: 0}: [{2: 7}, {10: 8}],
+        {10: 0}: []
+    }
     test_graph = SimpleGraph()
     test_graph._graph_content = test_dict
     return test_graph
@@ -85,3 +90,6 @@ def test_bfs(test_graph):
     assert test_graph.breadth_first_traversal(1) == [1, 2, 3, 10]
     # non-cyclic
     assert test_graph.breadth_first_traversal(2) == [2, 1, 3, 10]
+
+
+def test_find_weight(test_graph):
