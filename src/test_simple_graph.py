@@ -47,7 +47,7 @@ def test_add_edge(test_graph):
 
 def test_del_node(test_graph):
     test_graph.del_node(3)
-    assert test_graph._graph_content[1] == [2]
+    assert test_graph.edges == [(1, [2]), (2, [1]), (10, [])]
 
 
 def test_del_edge(test_graph):
