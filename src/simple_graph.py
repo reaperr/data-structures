@@ -81,8 +81,7 @@ class SimpleGraph(object):
     def adjacent(self, node1, node2):
         """Return True or False if two nodes have a connection."""
         if self.has_node(node1) and self.has_node(node2):
-            return (node2 in self._graph_content[node1] or
-                    node1 in self._graph_content[node2])
+            return (node1 in self.neighbors(node2))
         raise ValueError
 
     def depth_first_traversal(self, start):
