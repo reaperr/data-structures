@@ -17,7 +17,16 @@ class SimpleGraph(object):
 
     def edges(self):
         """Return a list of nodes and their edges."""
-        return list(self._graph_content.items())
+        rtn_list = []
+        # go through each node and its lists of paths.
+        for key, dicts in self._graph_content.items():
+            path_keys = []
+            # for each path append the key to path_keys
+            for dict in dicts:
+                path_keys.append(*dict.keys())
+            rtn_list.append((key, path_keys))
+        return rtn_list
+
 
     def add_node(self, val):
         """Add a new node to the graph."""
@@ -25,7 +34,7 @@ class SimpleGraph(object):
             raise ValueError
         self._graph_content[val] = []
 
-    def add_edge(self, node1, node2):
+    def add_edge(self, node1, node2, weight):
         """Add a new edge to the graph connecting node1 to node2.
 
         Checks if they exist and adds them if they do not.
@@ -34,7 +43,12 @@ class SimpleGraph(object):
             self.add_node(node1)
         if not self.has_node(node2):
             self.add_node(node2)
-        self._graph_content[node1].append(node2)
+        for node in self._graph_content[node1]:
+            # if edge already exists, update weight
+            if node2 in node.keys():
+                node[node2] = weight
+                return
+        self._graph_content[node1].append({node2: weight})
 
     def del_node(self, node):
         """Remove the node from the graph if it exists. Error on Fail."""
@@ -52,20 +66,27 @@ class SimpleGraph(object):
 
     def del_edge(self, node1, node2):
         """Remove the edge connected node1 to node2. Error on Fail."""
-        self._graph_content[node1].remove(node2)
+        for node in self._graph_content[node1]:
+            if node2 in node.keys():
+                self._graph_content[node1].remove(node)
 
     def neighbors(self, node):
         """Return a list of all nodes with edges connected to node(param)."""
         if self.has_node(node):
-            return [key for key in list(self._graph_content.keys())
-                    if node in self._graph_content[key]]
+            rtn_list = []
+            # go through each node and its lists of paths.
+            for key, dicts in self._graph_content.items():
+                # for each path that is node append the key to rtn_list
+                for dict in dicts:
+                    if node in dict.keys():
+                        rtn_list.append(key)
+            return rtn_list
         raise ValueError
 
     def adjacent(self, node1, node2):
         """Return True or False if two nodes have a connection."""
         if self.has_node(node1) and self.has_node(node2):
-            return (node2 in self._graph_content[node1] or
-                    node1 in self._graph_content[node2])
+            return (node1 in self.neighbors(node2))
         raise ValueError
 
     def depth_first_traversal(self, start):
@@ -80,7 +101,7 @@ class SimpleGraph(object):
             if checker not in set(visited):
                 visited.append(checker)
                 for item in self._graph_content[checker]:
-                    depth_stack.push(item)
+                    depth_stack.push(*item.keys())
         return visited
 
     def breadth_first_traversal(self, start):
@@ -95,7 +116,7 @@ class SimpleGraph(object):
             if checker not in set(visited):
                 visited.append(checker)
                 for item in self._graph_content[checker]:
-                    breadth_queue.enqueue(item)
+                    breadth_queue.enqueue(*item.keys())
         return visited
 
 
@@ -109,20 +130,20 @@ if __name__ == '__main__':
         10: ['7'],
     }
 
-    print(u"Made Graph:{}").format(basic_graph.edges())
+    print(u"Made Graph:{}".format(basic_graph.edges()))
     start1 = time.time()
     basic_graph.depth_first_traversal(3)
     end1 = time.time()
     print(u"Depth First Travel (from 3):")
     print(basic_graph.depth_first_traversal(3))
-    print(u"Took {} seconds").format(end1-start1)
+    print(u"Took {} seconds".format(end1-start1))
 
     start2 = time.time()
     basic_graph.breadth_first_traversal(3)
     end2 = time.time()
     print(u"Breadth First Travel (from 3):")
     print(basic_graph.breadth_first_traversal(3))
-    print(u"Took {} seconds").format(end2-start2)
+    print(u"Took {} seconds".format(end2-start2))
 
     crazy_graph = SimpleGraph()
     crazy_dict = {'head': range(100)}
@@ -138,10 +159,10 @@ if __name__ == '__main__':
     crazy_graph.depth_first_traversal('head')
     end3 = time.time()
     print(u"Depth First Travel (from head):")
-    print(u"Took {} seconds").format(end3-start3)
+    print(u"Took {} seconds".format(end3-start3))
 
     start4 = time.time()
     crazy_graph.breadth_first_traversal('head')
     end4 = time.time()
     print(u"Breadth First Travel (from head):")
-    print(u"Took {} seconds").format(end4-start4)
+    print(u"Took {} seconds".format(end4-start4))
