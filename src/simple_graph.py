@@ -44,6 +44,7 @@ class SimpleGraph(object):
         if not self.has_node(node2):
             self.add_node(node2)
         for node in self._graph_content[node1]:
+            # if edge already exists, update weight
             if node2 in node.keys():
                 node[node2] = weight
                 return
@@ -129,20 +130,20 @@ if __name__ == '__main__':
         10: ['7'],
     }
 
-    print(u"Made Graph:{}").format(basic_graph.edges())
+    print(u"Made Graph:{}".format(basic_graph.edges()))
     start1 = time.time()
     basic_graph.depth_first_traversal(3)
     end1 = time.time()
     print(u"Depth First Travel (from 3):")
     print(basic_graph.depth_first_traversal(3))
-    print(u"Took {} seconds").format(end1-start1)
+    print(u"Took {} seconds".format(end1-start1))
 
     start2 = time.time()
     basic_graph.breadth_first_traversal(3)
     end2 = time.time()
     print(u"Breadth First Travel (from 3):")
     print(basic_graph.breadth_first_traversal(3))
-    print(u"Took {} seconds").format(end2-start2)
+    print(u"Took {} seconds".format(end2-start2))
 
     crazy_graph = SimpleGraph()
     crazy_dict = {'head': range(100)}
@@ -158,10 +159,10 @@ if __name__ == '__main__':
     crazy_graph.depth_first_traversal('head')
     end3 = time.time()
     print(u"Depth First Travel (from head):")
-    print(u"Took {} seconds").format(end3-start3)
+    print(u"Took {} seconds".format(end3-start3))
 
     start4 = time.time()
     crazy_graph.breadth_first_traversal('head')
     end4 = time.time()
     print(u"Breadth First Travel (from head):")
-    print(u"Took {} seconds").format(end4-start4)
+    print(u"Took {} seconds".format(end4-start4))
