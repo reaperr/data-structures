@@ -34,7 +34,7 @@ class SimpleGraph(object):
             raise ValueError
         self._graph_content[val] = []
 
-    def add_edge(self, node1, node2):
+    def add_edge(self, node1, node2, weight):
         """Add a new edge to the graph connecting node1 to node2.
 
         Checks if they exist and adds them if they do not.
@@ -43,7 +43,11 @@ class SimpleGraph(object):
             self.add_node(node1)
         if not self.has_node(node2):
             self.add_node(node2)
-        self._graph_content[node1].append(node2)
+        for node in self._graph_content[node1]:
+            if node2 in node.keys():
+                node[node2] = weight
+                return
+        self._graph_content[node1].append({node2: weight})
 
     def del_node(self, node):
         """Remove the node from the graph if it exists. Error on Fail."""
@@ -96,7 +100,7 @@ class SimpleGraph(object):
             if checker not in set(visited):
                 visited.append(checker)
                 for item in self._graph_content[checker]:
-                    depth_stack.push(item)
+                    depth_stack.push(*item.keys())
         return visited
 
     def breadth_first_traversal(self, start):
@@ -111,7 +115,7 @@ class SimpleGraph(object):
             if checker not in set(visited):
                 visited.append(checker)
                 for item in self._graph_content[checker]:
-                    breadth_queue.enqueue(item)
+                    breadth_queue.enqueue(*item.keys())
         return visited
 
 
