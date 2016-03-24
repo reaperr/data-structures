@@ -45,13 +45,13 @@ class SimpleGraph(object):
             # if edge already exists, update weight
         self._graph_content[node1][node2] = weight
 
-    def del_node(self, node):
+    def del_node(self, rem_node):
         """Remove the node from the graph if it exists. Error on Fail."""
         try:
-            node_neighbors = self.neighbors(node)
-            for neighbor in node_neighbors:
-                self.del_edge(neighbor, node)
-            del self._graph_content[node]
+            for key in self._graph_content:
+                if self.adjacent(key, rem_node):
+                    self.del_edge(key, rem_node)
+            del self._graph_content[rem_node]
         except (KeyError, ValueError):
             raise ValueError
 
@@ -67,19 +67,14 @@ class SimpleGraph(object):
     def neighbors(self, node):
         """Return a list of all nodes with edges connected to node(param)."""
         if self.has_node(node):
-            rtn_list = []
             # go through each node and its lists of paths.
-            for key, nodes in self._graph_content.items():
-                # for each path that is node append the key to rtn_list
-                if node in nodes.keys():
-                    rtn_list.append(key)
-            return rtn_list
+            return list(self._graph_content[node])
         raise ValueError
 
     def adjacent(self, node1, node2):
         """Return True or False if two nodes have a connection."""
         if self.has_node(node1) and self.has_node(node2):
-            return (node1 in self.neighbors(node2))
+            return (node2 in self.neighbors(node1))
         raise ValueError
 
     def depth_first_traversal(self, start):
@@ -111,6 +106,35 @@ class SimpleGraph(object):
                 for key in self._graph_content[checker].keys():
                     breadth_queue.enqueue(key)
         return visited
+
+    def dijkstra_route(self, start, end):
+        """Test shortest route between two nodes using Dijkstra's algorithm."""
+        inf = float('inf')
+        current = {start: 0}
+        unvisited = {}
+        visited = []
+        for key in self._graph_content:
+            unvisited[key] = inf
+
+        while True:  # something
+            cur_key = list(current)[0]
+            for neighbor in self.neighbors(cur_key):
+                distance = (current[cur_key] +
+                            self._graph_content[cur_key][neighbor])
+                if distance < unvisited[neighbor]:
+                    unvisited[neighbor] = distance
+            visited.append(cur_key)
+            del unvisited[cur_key]
+            if end in set(visited):
+                return visited
+            distances = list(unvisited.values()).sort()
+            shortest = distances[0]
+            for key in unvisited:
+                if unvisited[key] == shortest:
+                    current = {key: shortest}
+                    del unvisited[key]
+                    break
+
 
 
 if __name__ == '__main__':
