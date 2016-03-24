@@ -7,10 +7,10 @@ from simple_graph import SimpleGraph
 @pytest.fixture()
 def test_graph():
     test_dict = {
-        1: [{2: 3}, {3: 5}],
-        2: [{1: 3}],
-        3: [{2: 7}, {10: 8}],
-        10: []
+        1: {2: 3, 3: 5},
+        2: {1: 3},
+        3: {2: 7, 10: 8},
+        10: {}
     }
     test_graph = SimpleGraph()
     test_graph._graph_content = test_dict
@@ -32,7 +32,7 @@ def test_edges(test_graph):
 
 def test_add_node(test_graph):
     test_graph.add_node(4)
-    assert test_graph._graph_content[4] == []
+    assert test_graph._graph_content[4] == {}
 
 
 def test_add_repeat_node(test_graph):
@@ -42,17 +42,17 @@ def test_add_repeat_node(test_graph):
 
 def test_add_edge_new_node(test_graph):
     test_graph.add_edge(4, 2, 3)
-    assert test_graph._graph_content[4] == [{2: 3}]
+    assert test_graph._graph_content[4] == {2: 3}
 
 
 def test_add_edge_existing_node(test_graph):
     test_graph.add_edge(10, 1, 5)
-    assert test_graph._graph_content[10] == [{1: 5}]
+    assert test_graph._graph_content[10] == {1: 5}
 
 
 def test_add_edge_overwrite_node(test_graph):
     test_graph.add_edge(1, 2, 11)
-    assert test_graph._graph_content[1] == [{2: 11}, {3: 5}]
+    assert test_graph._graph_content[1] == {2: 11, 3: 5}
 
 def test_del_node(test_graph):
     test_graph.del_node(3)
@@ -61,7 +61,7 @@ def test_del_node(test_graph):
 
 def test_del_edge(test_graph):
     test_graph.del_edge(3, 2)
-    assert test_graph._graph_content[3] == [{10: 8}]
+    assert test_graph._graph_content[3] == {10: 8}
 
 
 def test_has_node_true(test_graph):

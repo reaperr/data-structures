@@ -19,11 +19,10 @@ class SimpleGraph(object):
         """Return a list of nodes and their edges."""
         rtn_list = []
         # go through each node and its lists of paths.
-        for key, dicts in self._graph_content.items():
+        for key, nodes in self._graph_content.items():
             path_keys = []
             # for each path append the key to path_keys
-            for dict in dicts:
-                path_keys.append(*dict.keys())
+            path_keys += nodes.keys()
             rtn_list.append((key, path_keys))
         return rtn_list
 
@@ -32,7 +31,7 @@ class SimpleGraph(object):
         """Add a new node to the graph."""
         if self.has_node(val):
             raise ValueError
-        self._graph_content[val] = []
+        self._graph_content[val] = {}
 
     def add_edge(self, node1, node2, weight):
         """Add a new edge to the graph connecting node1 to node2.
@@ -43,12 +42,8 @@ class SimpleGraph(object):
             self.add_node(node1)
         if not self.has_node(node2):
             self.add_node(node2)
-        for node in self._graph_content[node1]:
             # if edge already exists, update weight
-            if node2 in node.keys():
-                node[node2] = weight
-                return
-        self._graph_content[node1].append({node2: weight})
+        self._graph_content[node1][node2] = weight
 
     def del_node(self, node):
         """Remove the node from the graph if it exists. Error on Fail."""
@@ -66,20 +61,18 @@ class SimpleGraph(object):
 
     def del_edge(self, node1, node2):
         """Remove the edge connected node1 to node2. Error on Fail."""
-        for node in self._graph_content[node1]:
-            if node2 in node.keys():
-                self._graph_content[node1].remove(node)
+        if node2 in self._graph_content[node1].keys():
+            del self._graph_content[node1][node2]
 
     def neighbors(self, node):
         """Return a list of all nodes with edges connected to node(param)."""
         if self.has_node(node):
             rtn_list = []
             # go through each node and its lists of paths.
-            for key, dicts in self._graph_content.items():
+            for key, nodes in self._graph_content.items():
                 # for each path that is node append the key to rtn_list
-                for dict in dicts:
-                    if node in dict.keys():
-                        rtn_list.append(key)
+                if node in nodes.keys():
+                    rtn_list.append(key)
             return rtn_list
         raise ValueError
 
@@ -100,8 +93,8 @@ class SimpleGraph(object):
             checker = depth_stack.pop()
             if checker not in set(visited):
                 visited.append(checker)
-                for item in self._graph_content[checker]:
-                    depth_stack.push(*item.keys())
+                for key in self._graph_content[checker].keys():
+                    depth_stack.push(key)
         return visited
 
     def breadth_first_traversal(self, start):
@@ -115,8 +108,8 @@ class SimpleGraph(object):
             checker = breadth_queue.dequeue()
             if checker not in set(visited):
                 visited.append(checker)
-                for item in self._graph_content[checker]:
-                    breadth_queue.enqueue(*item.keys())
+                for key in self._graph_content[checker].keys():
+                    breadth_queue.enqueue(key)
         return visited
 
 
