@@ -110,31 +110,37 @@ class SimpleGraph(object):
     def dijkstra_route(self, start, end):
         """Test shortest route between two nodes using Dijkstra's algorithm."""
         inf = float('inf')
-        current = {start: 0}
+        nodes_dict = {}
         unvisited = {}
-        visited = []
         for key in self._graph_content:
-            unvisited[key] = inf
-
-        while True:  # something
+            nodes_dict[key] = [inf, None]
+        unvisited = nodes_dict.copy()
+        unvisited[start] = [0, None]
+        while unvisited:
+            current = {}
+            distance = list(unvisited.values())
+            distance.sort()
+            shortest = distance[0][0]
+            for key in unvisited:
+                if unvisited[key][0] == shortest:
+                    current = {key: shortest}
+                    del unvisited[key]
+                    break
             cur_key = list(current)[0]
             for neighbor in self.neighbors(cur_key):
                 distance = (current[cur_key] +
                             self._graph_content[cur_key][neighbor])
-                if distance < unvisited[neighbor]:
-                    unvisited[neighbor] = distance
-            visited.append(cur_key)
-            del unvisited[cur_key]
-            if end in set(visited):
-                return visited
-            distances = list(unvisited.values()).sort()
-            shortest = distances[0]
-            for key in unvisited:
-                if unvisited[key] == shortest:
-                    current = {key: shortest}
-                    del unvisited[key]
-                    break
-
+                if distance < unvisited[neighbor][0]:
+                    unvisited[neighbor][0] = distance
+                    unvisited[neighbor][1] = cur_key
+                    nodes_dict[neighbor][1] = cur_key
+        full_path = []
+        prev_node = end
+        while nodes_dict[prev_node][1]:
+            full_path.append(prev_node)
+            prev_node = nodes_dict[prev_node][1]
+        full_path.append(start)
+        return full_path[::-1]
 
 
 if __name__ == '__main__':

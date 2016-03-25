@@ -21,8 +21,9 @@ def test_shortest_route():
     route_dict = {
         1: {2: 8, 3: 7},
         2: {10: 11},
-        3: {2: 13, 10: 3},
-        10: {}
+        3: {2: 13, 10: 3, 5: 1},
+        10: {},
+        5: {}
     }
     test_route = SimpleGraph()
     test_route._graph_content = route_dict
